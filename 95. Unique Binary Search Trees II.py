@@ -11,23 +11,19 @@ class Solution(object):
         :rtype: List[TreeNode]
         """
 
-        def generateTrees(start, end):
-            if start > end:
+        def backtrack(l,r):
+            if l >r :
                 return [None]
+            ans = []
 
-            allTrees = []
-            for i in range(start, end + 1):
-
-                leftTrees = generateTrees(start, i - 1)
-                rightTrees = generateTrees(i + 1, end)
-
-                for l in leftTrees:
-                    for r in rightTrees:
-                        currTree = TreeNode(i)
-                        currTree.left = l
-                        currTree.right = r
-                        allTrees.append(currTree)
-
-            return allTrees
-
-        return generateTrees(1, n) if n else []
+            for i in range(l,r+1):
+                left_trees = backtrack(l,i-1)
+                right_trees = backtrack(i+1,r)
+                for l_t in left_trees:
+                    for r_t in right_trees:
+                        curTree = TreeNode(i)
+                        curTree.left = l_t
+                        curTree.right = r_t
+                        ans.append(curTree)
+            return ans
+        return backtrack(1,n)
