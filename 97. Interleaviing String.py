@@ -6,20 +6,26 @@ class Solution(object):
         :type s3: str
         :rtype: bool
         """
-        if len(s1)+len(s2) != len(s3):
+        n1 = len(s1)
+        n2 = len(s2)
+        if n1 + n2 != len(s3):
             return False
-        if len(s1) == len(s2) == len(s3) == 0:
-            return True
-        col = len(s2) + 1
-        row = len(s1) + 1
-        dp = [[False]*col for i in range(row)]
+
+        dp = [[False] * (n2 + 1) for _ in range(n1 + 1)]
+
         dp[0][0] = True
-        for i in range(row):
-            for j in range(col):
-                if i > 0 and j > 0:
-                    dp[i][j] = ( dp[i-1][j] and s1[i-1] == s3[i+j-1] ) or ( dp[i][j-1] and s2[j-1] == s3[i+j-1] )
-                elif i > 0:
-                    dp[i][j] = ( dp[i-1][j] and s1[i-1] == s3[i+j-1] )
-                elif j > 0:
-                    dp[i][j] = ( dp[i][j-1] and s2[j-1] == s3[i+j-1] )
-        return dp[-1][-1]
+
+        # s1 is empty
+        for j in range(1, n2 + 1):
+            dp[0][j] = dp[0][j - 1] and s2[j - 1] == s3[j - 1]
+
+        # s2 is empty
+        for i in range(1, n1 + 1):
+            dp[i][0] = dp[i - 1][0] and s1[i - 1] == s3[i - 1]
+
+        for i in range(1, n1 + 1):
+            for j in range(1, n2 + 1):
+                dp[i][j] = (dp[i - 1][j] and s3[i + j - 1] == s1[i - 1]) or \
+                           (dp[i][j - 1] and s3[i + j - 1] == s2[j - 1])
+
+        return dp[n1][n2]
