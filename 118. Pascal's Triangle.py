@@ -14,3 +14,16 @@ class Solution(object):
                 ans[i].insert(j, ans[i - 1][j - 1] + ans[i - 1][j])
             ans[i].append(1)
         return ans
+
+        # ans = []
+        #
+        # for i in range(numRows + 1):
+        #     for j in range(i):
+        #         if j == 0:
+        #             ans.append([1])
+        #         elif j == i - 1:
+        #             ans[-1].append(1)
+        #         else:
+        #             ans[-1].append(ans[-2][j - 1] + ans[-2][j])
+        #
+        # return ans

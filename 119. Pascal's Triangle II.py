@@ -4,6 +4,7 @@ class Solution(object):
         :type rowIndex: int
         :rtype: List[int]
         """
+
         ans = [1]
         for i in range(rowIndex):
             last = 0
