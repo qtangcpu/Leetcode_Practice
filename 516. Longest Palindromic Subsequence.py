@@ -4,6 +4,9 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        # the max_len of palindrome subseq will only be great or equal to its subseq. So we can use dynamic programming
+        # we can go several ways as long as the cell to its left, right and left-right already has a value, and the cell at the
+        #top-right coner need to be filled at last.
         n = len(s)
         matrix = [[0]*n for i in range(n)]
         for i in range(n):
