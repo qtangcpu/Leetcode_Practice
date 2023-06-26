@@ -4,6 +4,10 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
+
+        #当天持有股票 和 不持有股票
+        #                 - 今天刚卖，明天进入冷冻期。- 之前就卖了
+        # 第一天： 当天就有的话是-price， 0，0
         if not prices:
             return 0
 
